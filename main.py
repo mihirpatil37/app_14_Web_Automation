@@ -4,10 +4,17 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import os
 
 # Define driver, options, amd service
 chrome_options = Options()
 chrome_options.add_argument("--disable-search-engine-choice-screen")
+
+download_path = os.getcwd()
+
+prefs = {'download.default_directory':download_path}
+chrome_options.add_experimental_option('prefs',prefs)
+
 service = Service("chromedriver-win64/chromedriver.exe")
 driver = webdriver.Chrome(options=chrome_options,service = service)
 
@@ -48,8 +55,11 @@ permanent_address_field.send_keys('B-15, Govardhan Park-3, TP-13, Vadodara, Indi
 driver.execute_script("arguments[0].click();", submit_button)
 
 
-
-
+# Locate the upload and download section and download button
+upload_download = (WebDriverWait(driver,10).until(EC.visibility_of_element_located((By.ID, 'item-7'))))
+upload_download.click()
+download_button = driver.find_element(By.ID, 'downloadButton')
+driver.execute_script("arguments[0].click();", download_button)
 
 input("Press Enter to close the browser")
 
