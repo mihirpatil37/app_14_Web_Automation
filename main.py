@@ -1,3 +1,4 @@
+from Demos.win32ts_logoff_disconnected import username
 from selenium import webdriver
 from selenium.webdriver.chrome.service import  Service
 from selenium.webdriver.chrome.options import Options
@@ -68,10 +69,17 @@ class WebAutomation:
     def close(self):
         self.driver.quit()
 
+
+user_name = input("Provide your username : ")
+password = input("Provide your password : ")
+fullname = input("Provide your fullname : ")
+email = input("Provide your email : ")
+current_address = input("Provide your current address : ")
+permanent_address = input("Provide your permanent address : ")
+
 if __name__ == "__main__":
     web_automation = WebAutomation()
-    web_automation.login('skywalker37', 'Khushbu@@@07')
-    web_automation.fill_form("Mihir Pradip Patil", "patilmihir9588@gmail.com", "Street1", "Street2")
+    web_automation.login(username=user_name, password=password)
+    web_automation.fill_form(fullname=fullname, email=email, current_address=current_address, permanent_address=permanent_address)
     web_automation.download()
-
     web_automation.close()
